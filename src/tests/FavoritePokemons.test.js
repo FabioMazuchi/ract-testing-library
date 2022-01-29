@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
 
-it.skip('Teste do componente FavoritePokemons', () => {
+it('Teste do componente FavoritePokemons', () => {
   const { history } = renderWithRouter(<App />);
 
   const linkFavorite = screen.getByRole('link', { name: 'Favorite Pokémons' });

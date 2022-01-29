@@ -11,7 +11,7 @@ describe('Teste do componente Pokedex', () => {
     renderWithRouter(<App />);
   });
 
-  it.skip('Teste se página contém um heading h2 escrito Encountered pokémons.', () => {
+  it('Teste se página contém um heading h2 escrito Encountered pokémons.', () => {
     const textPokedex = screen.getByRole('heading', {
       level: 2,
       name: 'Encountered pokémons',

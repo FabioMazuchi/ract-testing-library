@@ -69,7 +69,6 @@ describe('Teste do componente App', () => {
 
   it('Teste se a aplicação é redirecionada para a página Not Found', () => {
     const { history } = renderWithRouter(<App />);
-    console.log(history);
 
     history.push('/desconhecida');
 
