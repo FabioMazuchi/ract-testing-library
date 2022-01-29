@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
-
+// TODO
 const DETAIL = 'More details';
 const URL = 'pokemons/25';
 
@@ -31,7 +31,7 @@ describe('Teste o componente <PokemonDetails', () => {
     expect(resumoParagr).toBeInTheDocument();
   });
 
-  it('Teste se existe na página a seção com mapas com as localizações do pokémon', () => {
+  it('Existe na página a seção com mapas com as localizações do pokémon', async () => {
     const { history } = renderWithRouter(<App />);
     history.push(URL);
 
@@ -40,13 +40,22 @@ describe('Teste o componente <PokemonDetails', () => {
       name: 'Game Locations of Pikachu',
     });
     expect(locationText).toBeInTheDocument();
-    const locationsImg = screen.getAllByAltText('Pikachu location');
+    const locationsImg = await screen.findAllByAltText(
+      'Pikachu location',
+      undefined,
+      { timeout: 3000 },
+    );
     locationsImg.forEach((locationImg) => {
+      expect(locationImg).toBeInTheDocument();
       const location = locationImg.src;
       expect(locationImg).toBeInTheDocument();
-      expect(locationImg.src).toBe(location);
+      expect(locationImg).toHaveAttribute('src', location);
       expect(locationImg.alt).toBe('Pikachu location');
     });
+    const emText1 = screen.getByText('Kanto Viridian Forest');
+    expect(emText1).toBeInTheDocument();
+    const emText2 = screen.getByText('Kanto Power Plant');
+    expect(emText2).toBeInTheDocument();
   });
 
   it('Teste se o usuário pode favoritar um pokémon da página de detalhes.', () => {
