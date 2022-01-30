@@ -4,16 +4,18 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
 
-// TODO
-
 const VALUE = 7;
+
+function filterPokemons(filteredType) {
+  this.setState({ filteredType, pokemonIndex: 0 });
+}
 
 describe('Teste do componente Pokedex', () => {
   beforeEach(() => {
     renderWithRouter(<App />);
   });
 
-  it.skip('Teste se página contém um heading h2 escrito Encountered pokémons.', () => {
+  it('Teste se página contém um heading h2 escrito Encountered pokémons.', () => {
     const textPokedex = screen.getByRole('heading', {
       level: 2,
       name: 'Encountered pokémons',
@@ -40,5 +42,12 @@ describe('Teste do componente Pokedex', () => {
     expect(typeFire).toHaveTextContent('Fire');
     const allBtn = await screen.findByRole('button', { name: 'All' });
     expect(allBtn).toBeInTheDocument();
+    userEvent.click(allBtn);
+    let mockFilter = filterPokemons;
+    mockFilter = jest.fn();
+    mockFilter('all');
+    expect(mockFilter).toHaveBeenCalled();
+    expect(mockFilter).toBeCalledTimes(1);
+    expect(mockFilter).toBeCalledWith('all');
   });
 });
